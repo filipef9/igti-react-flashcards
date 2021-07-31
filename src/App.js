@@ -1,4 +1,4 @@
-export default function App() {
+const App = () => {
   console.log('Teste no console do navegador');
 
   return (
@@ -18,4 +18,6 @@ export default function App() {
       </main>
     </div>
   );
-}
+};
+
+export default App;
