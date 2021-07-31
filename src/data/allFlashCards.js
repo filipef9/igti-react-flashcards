@@ -42,5 +42,5 @@ export const allFlashCards = [
     "description": "Estrutura utilizada pelo React para manipulação do DOM em memória. Permite a atualização do DOM real somente onde necessário, o que pode garantir uma melhor performance da aplicação."
   }
 ]
-.map(card => ({ ...card, id: getNewId() }))
-.sort((c1, c2) => c1.title.localeCompare(c2.title));
+  .map(card => ({ id: getNewId(), ...card, showTitle: true }))
+  .sort((c1, c2) => c1.title.localeCompare(c2.title));

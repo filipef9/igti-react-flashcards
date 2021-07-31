@@ -10,17 +10,36 @@ import RadioButton from '../components/RadioButton';
 
 const FlashCardsPage = () => {
   const [allCards, setAllCards] = useState(allFlashCards);
-  const [showTitle, setShowTitle] = useState(true);
+  const [radioButtonShowTitle, setRadioButtonShowTitle] = useState(true);
 
   const handleButtonClick = () => {
     setAllCards(helperShuffleArray(allCards));
   };
 
   const handleShowTitleRadioButtonChange = () => {
-    setShowTitle(true);
+    const updatedCards = [...allCards].map(card => ({
+      ...card,
+      showTitle: true,
+    }));
+    setAllCards(updatedCards);
+    setRadioButtonShowTitle(true);
   };
+
   const handleShowDescriptionRadioButtonChange = () => {
-    setShowTitle(false);
+    const updatedCards = [...allCards].map(card => ({
+      ...card,
+      showTitle: false,
+    }));
+    setAllCards(updatedCards);
+    setRadioButtonShowTitle(false);
+  };
+
+  const handleToggleFlashCard = id => {
+    const updatedCards = [...allCards];
+    const cardIndex = updatedCards.findIndex(card => card.id === id);
+    const card = updatedCards[cardIndex];
+    card.showTitle = !card.showTitle;
+    setAllCards(updatedCards);
   };
 
   return (
@@ -35,7 +54,7 @@ const FlashCardsPage = () => {
           <RadioButton
             id="radioButtonShowTitle"
             name="showInfo"
-            checked={showTitle}
+            checked={radioButtonShowTitle}
             onRadioButtonChange={handleShowTitleRadioButtonChange}
           >
             Mostrar título
@@ -43,7 +62,7 @@ const FlashCardsPage = () => {
           <RadioButton
             id="radioButtonShowDescription"
             name="showInfo"
-            checked={!showTitle}
+            checked={!radioButtonShowTitle}
             onRadioButtonChange={handleShowDescriptionRadioButtonChange}
           >
             Mostrar descrição
@@ -51,12 +70,14 @@ const FlashCardsPage = () => {
         </div>
 
         <FlashCards>
-          {allCards.map(({ id, title, description }) => (
+          {allCards.map(({ id, title, description, showTitle }) => (
             <FlashCard
               key={id}
+              id={id}
               title={title}
               description={description}
               showFlashCardTitle={showTitle}
+              onToggleFlashCard={handleToggleFlashCard}
             />
           ))}
         </FlashCards>
