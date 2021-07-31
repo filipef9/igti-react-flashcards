@@ -6,7 +6,7 @@ const FlashCard = ({
 }) => {
   const [showTitle, setShowTitle] = useState(true);
 
-  const fontSizeClassName = showTitle ? 'text-xl' : 'text-md';
+  const fontSizeClassName = showTitle ? 'text-xl' : 'text-sm';
 
   const handleCardClick = () => {
     setShowTitle(currentShowTitle => !currentShowTitle);
@@ -17,7 +17,7 @@ const FlashCard = ({
       className={`
         shadow-lg
         cursor-pointer
-        p-4 w-64 h-32
+        m-2 p-4 w-96 h-48
         flex items-center justify-center
         font-semibold ${fontSizeClassName}
       `}
